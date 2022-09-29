@@ -1,0 +1,19 @@
+on:
+  push:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: build
+      run: |
+        mkdir build
+        cd build
+        cmake .. -A x64
+        cmake --build . --config Release
+    - name: test
+      run: |
+        .\build\Release\issue_36.exe
